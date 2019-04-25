@@ -1,0 +1,36 @@
+"Games"
+{
+	"tf"
+	{
+		"Functions"
+		{
+			"CTFPlayer::TakeHealth()"
+			{
+				"signature"		"CTFPlayer::TakeHealth()"
+				"callconv"		"thiscall"
+				"return"		"int"
+				"this"			"entity"
+				"arguments"
+				{
+					"amount"
+					{
+						"type"	"float"
+					}
+					"flags"
+					{
+						"type"	"int"
+					}
+				}
+			}
+		}
+		
+		"Signatures"
+		{
+			"CTFPlayer::TakeHealth()"
+			{
+				"library"	"server"
+				"linux"		"@_ZN9CTFPlayer10TakeHealthEfi"
+			}
+		}
+	}
+}
