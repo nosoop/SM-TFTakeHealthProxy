@@ -8,6 +8,7 @@
 
 #include <sdktools>
 #include <dhooks>
+// #include <stocksoup/log_server>
 
 #pragma newdecls required
 
@@ -23,6 +24,8 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 			ET_Event, Param_Cell, Param_FloatByRef);
 	g_OnTakeHealthPre = CreateGlobalForward("TF2_OnTakeHealthPre",
 			ET_Hook, Param_Cell, Param_FloatByRef, Param_CellByRef);
+	
+	return APLRes_Success;
 }
 
 public void OnPluginStart() {
@@ -76,8 +79,10 @@ public MRESReturn OnTakeHealthPre(int client, Handle hReturn, Handle hParams) {
 	 */
 	
 	if (result == Plugin_Stop) {
+		// LogServer("Blocked healing on %N", client);
 		return MRES_Supercede;
 	} else if (result == Plugin_Continue && flModifiedHealAmount == flOriginalHealAmount) {
+		// LogServer("Unchanged healing on %N: %.2f", client, flOriginalHealAmount);
 		return MRES_Ignored;
 	}
 	
@@ -88,6 +93,9 @@ public MRESReturn OnTakeHealthPre(int client, Handle hReturn, Handle hParams) {
 	
 	DHookSetParam(hParams, 1, float(iHealAmount));
 	DHookSetParam(hParams, 2, bitsDamageType);
+	
+	// LogServer("Modified healing for %N: %.2f -> %.2f", client,
+			// flOriginalHealAmount, flModifiedHealAmount);
 	
 	return MRES_ChangedHandled;
 }
