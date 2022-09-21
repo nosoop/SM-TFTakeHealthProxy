@@ -2,4 +2,6 @@
 # Ignore compiled SourceMod plugins
 
 *.smx
-
+build/
+build.ninja
+__pycache__/
